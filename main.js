@@ -54,9 +54,13 @@ var rect = svg.selectAll(".day")
 
 d3.csv("dji.csv", function(error, csv) {
 	var data = d3.nest()
-		.key(function(d) { return d.Date; })
-		.rollup(function(d) { console.log(d); return (d[0].Close - d[0].Open) / d[0].Open; })
-		.map(csv);
+		.key(function(d) { 
+			console.log(d); 
+			return d.Date; })
+		.rollup(function(d) { 
+
+			return (d[0].Close - d[0].Open) / d[0].Open; })
+		.object(csv);
 
 	console.log(data);	
 	rect.filter(function(d) { return d in data; })
